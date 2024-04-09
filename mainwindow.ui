@@ -54,7 +54,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="name"/>
+            <widget class="QLineEdit" name="name">
+             <property name="text">
+              <string>Денис</string>
+             </property>
+            </widget>
            </item>
            <item>
             <spacer name="verticalSpacer">
@@ -240,6 +244,84 @@
        <attribute name="title">
         <string>Настройки</string>
        </attribute>
+       <widget class="QGroupBox" name="groupBoxTime">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>225</width>
+          <height>126</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Время</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelWeekday">
+           <property name="text">
+            <string>День недели</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="comboBoxWeekday">
+           <item>
+            <property name="text">
+             <string>Понедельник</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Вторник</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Среда</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Четверг</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Пятница</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Суббота</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Воскресенье</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelGlobalTime">
+           <property name="text">
+            <string>Время</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QTimeEdit" name="timeEditGlobalTime"/>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QCheckBox" name="checkBoxSystemTime">
+           <property name="text">
+            <string>Использовать системное время</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </widget>
     </item>

@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupProfile();
     setupHomePage();
+    setupSettings();
 }
 
 MainWindow::~MainWindow()
@@ -20,6 +21,8 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setupProfile() {
+    name = ui->name->text();
+
     // Конекты на кнопки
     connect(ui->checkBoxAlwaysHome, &QCheckBox::clicked, this, [this](bool checked) {
         qDebug() << "Always Home: " << checked;
@@ -30,26 +33,55 @@ void MainWindow::setupProfile() {
     connect(ui->name, &QLineEdit::textChanged, this, [this]() {
         name = ui->name->text();
         qDebug() << "name: " << name;
+
+        changeWelcome();
     });
 }
 
 void MainWindow::setupHomePage() {
-    connect(ui->name, &QLineEdit::textChanged, this, [this]() {
-        QString welcome;
-        int hour = QTime::currentTime().hour();
+    changeWelcome();
+}
 
-        if (hour >= 4 && hour <= 10) {
-            welcome = "Доброе утро, " + name;
-        } else if (hour > 10 && hour <= 16) {
-            welcome = "Добрый день, " + name;
-        } else if (hour > 16 && hour <= 22) {
-            welcome = "Добрый вечер, " + name;
-        } else {
-            welcome = "Доброй ночи, " + name;
+
+
+void MainWindow::setupSettings() {
+    globalTime = ui->timeEditGlobalTime->time();
+
+    connect(ui->checkBoxSystemTime, &QCheckBox::clicked, this, [this](bool checked) {
+        ui->comboBoxWeekday->setEnabled(!checked);
+        ui->timeEditGlobalTime->setEnabled(!checked);
+
+        if (checked) {
+            globalTime = QTime::currentTime();
+        }
+        else {
+            globalTime = ui->timeEditGlobalTime->time();
         }
 
-        ui->labelWelcome->setText(welcome);
+        changeWelcome();
     });
 
+    connect(ui->timeEditGlobalTime, &QTimeEdit::timeChanged, this, [this]() {
+        globalTime = ui->timeEditGlobalTime->time();
+
+        changeWelcome();
+    });
+}
+
+void MainWindow::changeWelcome() {
+    QString welcome;
+    int hour = globalTime.hour();
+
+    if (hour >= 4 && hour <= 10) {
+        welcome = "Доброе утро, " + name;
+    } else if (hour > 10 && hour <= 16) {
+        welcome = "Добрый день, " + name;
+    } else if (hour > 16 && hour <= 22) {
+        welcome = "Добрый вечер, " + name;
+    } else {
+        welcome = "Доброй ночи, " + name;
+    }
+
+    ui->labelWelcome->setText(welcome);
 }
 

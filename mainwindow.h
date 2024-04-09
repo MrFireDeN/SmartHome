@@ -2,6 +2,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qdatetime.h"
 #include <QMainWindow>
 
 
@@ -23,8 +24,13 @@ private:
     Ui::MainWindow *ui;
     void setupProfile();
     void setupHomePage();
+    void setupSettings();
+
+    void changeWelcome();
 
     QString name;
+    QTime globalTime;
+    int weekday = 0;
 };
 
 #endif // MAINWINDOW_H
