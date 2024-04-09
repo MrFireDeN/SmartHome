@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>901</width>
-    <height>513</height>
+    <width>699</width>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Умный дом</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="homepage">
        <attribute name="title">
@@ -29,124 +29,191 @@
        <attribute name="title">
         <string>Профиль</string>
        </attribute>
-      </widget>
-      <widget class="QWidget" name="things">
-       <attribute name="title">
-        <string>Устройства</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QGroupBox" name="things_2">
-          <property name="title">
-           <string>Устройства</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QWidget" name="widget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout">
-             <item>
-              <widget class="QCheckBox" name="frige">
-               <property name="text">
-                <string>Холодильник</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="kettle">
-               <property name="text">
-                <string>Чайник</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="coffeMachine">
-               <property name="text">
-                <string>Кофемашина</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="airConditioner">
-               <property name="text">
-                <string>Кондиционер</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="lightSwitch">
-               <property name="text">
-                <string>Выключатель</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="socket">
-               <property name="text">
-                <string>Розетка</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="light">
-               <property name="text">
-                <string>Освещение</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="locks">
-               <property name="text">
-                <string>Замки</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="door">
-               <property name="text">
-                <string>Дверь</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="securitySystem">
-               <property name="text">
-                <string>Система безопасности</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="cameras">
-               <property name="text">
-                <string>Камеры</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="intercom">
-               <property name="text">
-                <string>Домофон</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="smartSpeaker">
-               <property name="text">
-                <string>Умные колонки</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="robotCleaner">
-               <property name="text">
-                <string>Робот-пылесос</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="QLabel" name="labelName">
+             <property name="text">
+              <string>Имя пользователя</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="name"/>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBoxBelong">
+             <property name="title">
+              <string>Принадлежность</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QRadioButton" name="radioButtonStudent">
+                <property name="text">
+                 <string>Студент</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButtonWorker">
+                <property name="text">
+                 <string>Рабочий</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButtonPensioner">
+                <property name="text">
+                 <string>Пенсионер</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBoxWorkTime">
+             <property name="title">
+              <string>График работы</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="1" column="0">
+               <widget class="QLabel" name="labelStopWorking">
+                <property name="text">
+                 <string>Конец работы</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="labelStartWorking">
+                <property name="text">
+                 <string>Начало работы</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QCheckBox" name="checkBoxAlwaysHome">
+                <property name="text">
+                 <string>Не выхожу из дома</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QTimeEdit" name="timeEditStartWorking">
+                <property name="time">
+                 <time>
+                  <hour>8</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                 </time>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QTimeEdit" name="timeEditStopWorking">
+                <property name="time">
+                 <time>
+                  <hour>18</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                 </time>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBoxWeekends">
+          <property name="title">
+           <string>Выходные</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QCheckBox" name="checkBoxMon">
+             <property name="text">
+              <string>Понедельник</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxTues">
+             <property name="text">
+              <string>Вторник</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxWed">
+             <property name="text">
+              <string>Среда</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxThurs">
+             <property name="text">
+              <string>Четверг</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxFri">
+             <property name="text">
+              <string>Пятница</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxSat">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Суббота</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxSun">
+             <property name="text">
+              <string>Воскресенье</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="things">
+       <attribute name="title">
+        <string>Устройства</string>
+       </attribute>
       </widget>
       <widget class="QWidget" name="scripts">
        <attribute name="title">
@@ -167,8 +234,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>901</width>
-     <height>26</height>
+     <width>699</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
