@@ -24,7 +24,7 @@
        <attribute name="title">
         <string>Домашний экран</string>
        </attribute>
-       <widget class="QLabel" name="labelWelcome">
+       <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
           <x>10</x>

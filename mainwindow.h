@@ -21,6 +21,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void setupProfile();
+    void setupHomePage();
+
+    QString name;
 };
 
 #endif // MAINWINDOW_H
