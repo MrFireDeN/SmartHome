@@ -17,7 +17,8 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui \
-    mainwindow_denis.ui
+    mainwindow_denis.ui \
+    mainwindow_iluha.ui
 
 TRANSLATIONS += \
     SmartHome_ru_RU.ts
