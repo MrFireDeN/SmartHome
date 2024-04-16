@@ -24,7 +24,7 @@
        <attribute name="title">
         <string>Домашний экран</string>
        </attribute>
-       <widget class="QLabel" name="labelWelcome">
+       <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -54,11 +54,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="name">
-             <property name="text">
-              <string>Денис</string>
-             </property>
-            </widget>
+            <widget class="QLineEdit" name="name"/>
            </item>
            <item>
             <spacer name="verticalSpacer">
@@ -247,7 +243,7 @@
        <widget class="QGroupBox" name="groupBoxTime">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>20</x>
           <y>20</y>
           <width>225</width>
           <height>126</height>
