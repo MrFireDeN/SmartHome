@@ -14,9 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupHomePage();
     setupSettings();
 
-    setupScript(ui->scrollAreaMorningScript);
-    setupScript(ui->scrollAreaDayScript);
-    setupScript(ui->scrollAreaEveningScript);
+    setupScript();
 
     //ui->dayScript_1->setStyleSheet("QTextBrowser { background-color: purple; }");
     //ui->dayScript_2->setStyleSheet("QTextBrowser { background-color: red; }");
@@ -85,7 +83,36 @@ void MainWindow::setupSettings() {
     });
 }
 
-void MainWindow::setupScript(QScrollArea *area) {
+// Метод для настройки сценариев приложения
+void MainWindow::setupScript() {
+    changeMorningScripts();
+    changeDayScripts();
+    changeEveningScripts();
+}
+
+// Метод для обновления текста приветствия в зависимости от времени суток
+void MainWindow::changeWelcome() {
+    QString welcome; // Строка для хранения приветствия
+    int hour = globalTime.hour(); // Получение текущего часа
+
+    // Определение приветствия в зависимости от времени суток
+    if (hour >= 4 && hour <= 10) {
+        welcome = "Доброе утро, " + name;
+    } else if (hour > 10 && hour <= 16) {
+        welcome = "Добрый день, " + name;
+    } else if (hour > 16 && hour <= 22) {
+        welcome = "Добрый вечер, " + name;
+    } else {
+        welcome = "Доброй ночи, " + name;
+    }
+
+    // Установка текста приветствия в пользовательский интерфейс
+    ui->labelWelcome->setText(welcome);
+}
+
+// Метод изменения утренних скриптов
+void MainWindow::changeMorningScripts() {
+
     // Создаем горизонтальный Layout для содержимого QScrollArea
     QHBoxLayout *layout = new QHBoxLayout();
 
@@ -132,40 +159,110 @@ void MainWindow::setupScript(QScrollArea *area) {
     scrollAreaWidgetMorningScript->setLayout(layout);
 
     // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
-    area->setWidget(scrollAreaWidgetMorningScript);
-}
-
-// Метод для обновления текста приветствия в зависимости от времени суток
-void MainWindow::changeWelcome() {
-    QString welcome; // Строка для хранения приветствия
-    int hour = globalTime.hour(); // Получение текущего часа
-
-    // Определение приветствия в зависимости от времени суток
-    if (hour >= 4 && hour <= 10) {
-        welcome = "Доброе утро, " + name;
-    } else if (hour > 10 && hour <= 16) {
-        welcome = "Добрый день, " + name;
-    } else if (hour > 16 && hour <= 22) {
-        welcome = "Добрый вечер, " + name;
-    } else {
-        welcome = "Доброй ночи, " + name;
-    }
-
-    // Установка текста приветствия в пользовательский интерфейс
-    ui->labelWelcome->setText(welcome);
-}
-
-// Метод изменения утренних скриптов
-void MainWindow::changeMorningScripts() {
-
+    ui->scrollAreaMorningScript->setWidget(scrollAreaWidgetMorningScript);
 }
 
 // Метод изменения дневных скриптов
 void MainWindow::changeDayScripts() {
 
+    // Создаем горизонтальный Layout для содержимого QScrollArea
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    // Создаем QTextBrowser и добавляем его в Layout
+    QTextBrowser *script = new QTextBrowser();
+    script->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script->setMinimumHeight(120);
+    script->setMaximumHeight(167);
+    script->setMinimumWidth(200);
+    script->setMaximumWidth(200);
+    script->setStyleSheet("QTextBrowser { background-color: purple; }");
+    layout->addWidget(script);
+
+    // Повторяем для остальных QTextBrowser
+    QTextBrowser *script1 = new QTextBrowser();
+    script1->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script1->setMinimumHeight(120);
+    script1->setMaximumHeight(167);
+    script1->setMinimumWidth(200);
+    script1->setMaximumWidth(200);
+    script1->setStyleSheet("QTextBrowser { background-color: red; }");
+    layout->addWidget(script1);
+
+    QTextBrowser *script2 = new QTextBrowser();
+    script2->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script2->setMinimumHeight(120);
+    script2->setMaximumHeight(167);
+    script2->setMinimumWidth(200);
+    script2->setMaximumWidth(200);
+    script2->setStyleSheet("QTextBrowser { background-color: green; }");
+    layout->addWidget(script2);
+
+    QTextBrowser *script3 = new QTextBrowser();
+    script3->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script3->setMinimumHeight(120);
+    script3->setMaximumHeight(167);
+    script3->setMinimumWidth(200);
+    script3->setMaximumWidth(200);
+    script3->setStyleSheet("QTextBrowser { background-color: blue; }");
+    layout->addWidget(script3);
+
+    // Создаем QWidget для содержимого QScrollArea и устанавливаем в него Layout
+    QWidget *scrollAreaWidgetMorningScript = new QWidget();
+    scrollAreaWidgetMorningScript->setLayout(layout);
+
+    // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
+    ui->scrollAreaDayScript->setWidget(scrollAreaWidgetMorningScript);
 }
 
 // Метод изменения дневных скриптов
 void MainWindow::changeEveningScripts() {
+
+    // Создаем горизонтальный Layout для содержимого QScrollArea
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    // Создаем QTextBrowser и добавляем его в Layout
+    QTextBrowser *script = new QTextBrowser();
+    script->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script->setMinimumHeight(120);
+    script->setMaximumHeight(167);
+    script->setMinimumWidth(200);
+    script->setMaximumWidth(200);
+    script->setStyleSheet("QTextBrowser { background-color: purple; }");
+    layout->addWidget(script);
+
+    // Повторяем для остальных QTextBrowser
+    QTextBrowser *script1 = new QTextBrowser();
+    script1->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script1->setMinimumHeight(120);
+    script1->setMaximumHeight(167);
+    script1->setMinimumWidth(200);
+    script1->setMaximumWidth(200);
+    script1->setStyleSheet("QTextBrowser { background-color: red; }");
+    layout->addWidget(script1);
+
+    QTextBrowser *script2 = new QTextBrowser();
+    script2->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script2->setMinimumHeight(120);
+    script2->setMaximumHeight(167);
+    script2->setMinimumWidth(200);
+    script2->setMaximumWidth(200);
+    script2->setStyleSheet("QTextBrowser { background-color: green; }");
+    layout->addWidget(script2);
+
+    QTextBrowser *script3 = new QTextBrowser();
+    script3->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script3->setMinimumHeight(120);
+    script3->setMaximumHeight(167);
+    script3->setMinimumWidth(200);
+    script3->setMaximumWidth(200);
+    script3->setStyleSheet("QTextBrowser { background-color: blue; }");
+    layout->addWidget(script3);
+
+    // Создаем QWidget для содержимого QScrollArea и устанавливаем в него Layout
+    QWidget *scrollAreaWidgetMorningScript = new QWidget();
+    scrollAreaWidgetMorningScript->setLayout(layout);
+
+    // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
+    ui->scrollAreaEveningScript->setWidget(scrollAreaWidgetMorningScript);
 
 }

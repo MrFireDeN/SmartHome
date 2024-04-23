@@ -25,7 +25,7 @@ private:
     void setupProfile(); // Метод для настройки профиля пользователя
     void setupHomePage(); // Метод для настройки домашней страницы
     void setupSettings(); // Метод для настройки настроек приложения
-    void setupScript(QScrollArea*);
+    void setupScript(); // Метод для настройки сценариев приложения
 
     void changeWelcome(); // Метод для обновления приветствия
     void changeMorningScripts(); // Метод изменения утренних скриптов
