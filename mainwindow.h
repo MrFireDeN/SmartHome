@@ -3,6 +3,7 @@
 
 #include "qdatetime.h"
 #include <QMainWindow>
+#include <QScrollArea>
 
 // Объявление пространства имен для UI
 QT_BEGIN_NAMESPACE
@@ -24,6 +25,7 @@ private:
     void setupProfile(); // Метод для настройки профиля пользователя
     void setupHomePage(); // Метод для настройки домашней страницы
     void setupSettings(); // Метод для настройки настроек приложения
+    void setupScript(QScrollArea*);
 
     void changeWelcome(); // Метод для обновления приветствия
 

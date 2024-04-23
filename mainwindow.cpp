@@ -13,6 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     setupProfile();
     setupHomePage();
     setupSettings();
+
+    setupScript(ui->scrollAreaMorningScript);
+    setupScript(ui->scrollAreaDayScript);
+    setupScript(ui->scrollAreaEveningScript);
+
+    //ui->dayScript_1->setStyleSheet("QTextBrowser { background-color: purple; }");
+    //ui->dayScript_2->setStyleSheet("QTextBrowser { background-color: red; }");
+    //ui->dayScript_3->setStyleSheet("QTextBrowser { background-color: green; }");
+    //ui->dayScript_4->setStyleSheet("QTextBrowser { background-color: blue; }");
 }
 
 // Деструктор главного окна
@@ -74,6 +83,56 @@ void MainWindow::setupSettings() {
 
         changeWelcome(); // Обновление приветствия
     });
+}
+
+void MainWindow::setupScript(QScrollArea *area) {
+    // Создаем горизонтальный Layout для содержимого QScrollArea
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    // Создаем QTextBrowser и добавляем его в Layout
+    QTextBrowser *script = new QTextBrowser();
+    script->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script->setMinimumHeight(120);
+    script->setMaximumHeight(167);
+    script->setMinimumWidth(200);
+    script->setMaximumWidth(200);
+    script->setStyleSheet("QTextBrowser { background-color: purple; }");
+    layout->addWidget(script);
+
+    // Повторяем для остальных QTextBrowser
+    QTextBrowser *script1 = new QTextBrowser();
+    script1->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script1->setMinimumHeight(120);
+    script1->setMaximumHeight(167);
+    script1->setMinimumWidth(200);
+    script1->setMaximumWidth(200);
+    script1->setStyleSheet("QTextBrowser { background-color: red; }");
+    layout->addWidget(script1);
+
+    QTextBrowser *script2 = new QTextBrowser();
+    script2->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script2->setMinimumHeight(120);
+    script2->setMaximumHeight(167);
+    script2->setMinimumWidth(200);
+    script2->setMaximumWidth(200);
+    script2->setStyleSheet("QTextBrowser { background-color: green; }");
+    layout->addWidget(script2);
+
+    QTextBrowser *script3 = new QTextBrowser();
+    script3->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
+    script3->setMinimumHeight(120);
+    script3->setMaximumHeight(167);
+    script3->setMinimumWidth(200);
+    script3->setMaximumWidth(200);
+    script3->setStyleSheet("QTextBrowser { background-color: blue; }");
+    layout->addWidget(script3);
+
+    // Создаем QWidget для содержимого QScrollArea и устанавливаем в него Layout
+    QWidget *scrollAreaWidgetMorningScript = new QWidget();
+    scrollAreaWidgetMorningScript->setLayout(layout);
+
+    // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
+    area->setWidget(scrollAreaWidgetMorningScript);
 }
 
 // Метод для обновления текста приветствия в зависимости от времени суток
