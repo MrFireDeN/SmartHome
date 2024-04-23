@@ -28,6 +28,9 @@ private:
     void setupScript(QScrollArea*);
 
     void changeWelcome(); // Метод для обновления приветствия
+    void changeMorningScripts(); // Метод изменения утренних скриптов
+    void changeDayScripts(); // Метод изменения дневных скриптов
+    void changeEveningScripts(); // Метод изменения вечерних скриптов
 
     QString name; // Имя пользователя
     QTime globalTime; // Глобальное время, используемое в приложении

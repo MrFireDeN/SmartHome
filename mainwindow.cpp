@@ -154,3 +154,18 @@ void MainWindow::changeWelcome() {
     // Установка текста приветствия в пользовательский интерфейс
     ui->labelWelcome->setText(welcome);
 }
+
+// Метод изменения утренних скриптов
+void MainWindow::changeMorningScripts() {
+
+}
+
+// Метод изменения дневных скриптов
+void MainWindow::changeDayScripts() {
+
+}
+
+// Метод изменения дневных скриптов
+void MainWindow::changeEveningScripts() {
+
+}
