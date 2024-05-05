@@ -82,6 +82,11 @@ void MainWindow::setupSettings() {
 
         changeWelcome(); // Обновление приветствия
     });
+
+    //Настройка поведения при изменении времени на дорогу
+    connect(ui->travelTime, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](){
+
+    });
 }
 // Настройка вкладки устройства
 void MainWindow::setupThings(){

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>923</width>
+    <width>750</width>
     <height>645</height>
    </rect>
   </property>
@@ -14,11 +14,11 @@
    <string>Умный дом</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="homepage">
        <attribute name="title">
@@ -380,7 +380,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>879</width>
+             <width>706</width>
              <height>148</height>
             </rect>
            </property>
@@ -438,8 +438,8 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>879</width>
-             <height>149</height>
+             <width>836</width>
+             <height>128</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -565,8 +565,8 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>879</width>
-             <height>148</height>
+             <width>836</width>
+             <height>127</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -675,78 +675,116 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>Настройки</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QGroupBox" name="groupBoxTime">
-          <property name="title">
-           <string>Время</string>
-          </property>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="labelWeekday">
-             <property name="text">
-              <string>День недели</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="comboBoxWeekday">
-             <item>
-              <property name="text">
-               <string>Понедельник</string>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <layout class="QFormLayout" name="formLayout_3">
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="groupBoxTime">
+              <property name="title">
+               <string>Время</string>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Вторник</string>
+              <layout class="QFormLayout" name="formLayout">
+               <item row="0" column="0">
+                <widget class="QLabel" name="labelWeekday">
+                 <property name="text">
+                  <string>День недели</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="comboBoxWeekday">
+                 <item>
+                  <property name="text">
+                   <string>Понедельник</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Вторник</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Среда</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Четверг</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Пятница</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Суббота</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Воскресенье</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="labelGlobalTime">
+                 <property name="text">
+                  <string>Время</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QTimeEdit" name="timeEditGlobalTime"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QCheckBox" name="checkBoxSystemTime">
+                 <property name="text">
+                  <string>Использовать системное время</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QGroupBox" name="roadTime">
+              <property name="title">
+               <string>Время на дорогу</string>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Среда</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Четверг</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Пятница</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Суббота</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Воскресенье</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="labelGlobalTime">
-             <property name="text">
-              <string>Время</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QTimeEdit" name="timeEditGlobalTime"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="checkBoxSystemTime">
-             <property name="text">
-              <string>Использовать системное время</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <widget class="QSpinBox" name="travelTime"/>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>мин.</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="checkBox">
+                 <property name="text">
+                  <string>Пробки на дороге</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -759,7 +797,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>923</width>
+     <width>750</width>
      <height>26</height>
     </rect>
    </property>
