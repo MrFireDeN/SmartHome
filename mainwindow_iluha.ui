@@ -184,13 +184,6 @@
            </item>
           </layout>
          </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox">
-           <property name="text">
-            <string>Пробки на дороге</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </widget>
