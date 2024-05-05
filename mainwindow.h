@@ -26,6 +26,7 @@ private:
     void setupHomePage(); // Метод для настройки домашней страницы
     void setupSettings(); // Метод для настройки настроек приложения
     void setupScript(); // Метод для настройки сценариев приложения
+    void setupThings(); // Метод для настройки используемых устройств
 
     void changeWelcome(); // Метод для обновления приветствия
     void changeMorningScripts(); // Метод изменения утренних скриптов

@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupProfile();
     setupHomePage();
     setupSettings();
+    setupThings();
 
     setupScript();
 
@@ -82,7 +83,53 @@ void MainWindow::setupSettings() {
         changeWelcome(); // Обновление приветствия
     });
 }
+// Настройка вкладки устройства
+void MainWindow::setupThings(){
 
+    connect(ui->frige,&QCheckBox::stateChanged,this,[this](){ // Устройство: Холодильник
+
+    });
+    connect(ui->airConditioner,&QCheckBox::stateChanged,this,[this](){ // Устройство: Кондиционер
+
+    });
+    connect(ui->cameras,&QCheckBox::stateChanged,this,[this](){ // Устройство: Камеры
+
+    });
+    connect(ui->coffeMachine,&QCheckBox::stateChanged,this,[this](){ // Устройство: Кофемашина
+
+    });
+    connect(ui->door,&QCheckBox::stateChanged,this,[this](){ // Устройство: Дверь
+
+    });
+    connect(ui->intercom,&QCheckBox::stateChanged,this,[this](){ // Устройство: Домофон
+
+    });
+    connect(ui->kettle,&QCheckBox::stateChanged,this,[this](){ // Устройство: Чайник
+
+    });
+    connect(ui->light,&QCheckBox::stateChanged,this,[this](){ // Устройство: Свет
+
+    });
+    connect(ui->lightSwitch,&QCheckBox::stateChanged,this,[this](){ // Устройство: Переключатель света
+
+    });
+    connect(ui->locks,&QCheckBox::stateChanged,this,[this](){ // Устройство: Замок
+
+    });
+    connect(ui->robotCleaner,&QCheckBox::stateChanged,this,[this](){ // Устройство: Робот пылесос
+
+    });
+    connect(ui->securitySystem,&QCheckBox::stateChanged,this,[this](){ // Устройство: Система безопасности
+
+    });
+    connect(ui->smartSpeaker,&QCheckBox::stateChanged,this,[this](){ // Устройство: Умная колонка
+
+    });
+    connect(ui->socket,&QCheckBox::stateChanged,this,[this](){ // Устройство: Розетка
+
+    });
+
+}
 // Метод для настройки сценариев приложения
 void MainWindow::setupScript() {
     changeMorningScripts();
