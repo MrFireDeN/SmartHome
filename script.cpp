@@ -1,9 +1,11 @@
 #include "script.h"
 
+Script::Script(){}
+
 /**
  * Логика функции для холодильника
  */
-QVector<QVector<QString>> script::getFrige() {
+QVector<QVector<QString>> Script::getFrige() {
     morning = {
         "Напоминание через приложение о продуктах с истекающим сроком годности.",
         "Автоматическое включение режима \"Быстрое охлаждение\" к утру для свежих напитков.",
@@ -25,7 +27,7 @@ QVector<QVector<QString>> script::getFrige() {
 /**
  * Логика функции для кондиционера
  */
-QVector<QVector<QString>> script::getAirConditioner() {
+QVector<QVector<QString>> Script::getAirConditioner() {
     // Implement the function logic here
     morning = {
         "Автоматическое включение кондиционера к назначенному времени пробуждения для создания комфортной температуры. ",
@@ -48,7 +50,7 @@ QVector<QVector<QString>> script::getAirConditioner() {
 /**
  * Логика функции для камер
  */
-QVector<QVector<QString>> script::getCameras() {
+QVector<QVector<QString>> Script::getCameras() {
     // Implement the function logic here
     morning = {
         "Просмотр потокового видео с камер перед выходом из дома для проверки обстановки.",
@@ -71,7 +73,7 @@ QVector<QVector<QString>> script::getCameras() {
 /**
  * Логика функции для кофемашины
  */
-QVector<QVector<QString>> script::getCoffeMachine() {
+QVector<QVector<QString>> Script::getCoffeMachine() {
     // Implement the function logic here
     morning = {
         "Автоматический запуск приготовления кофе к заданному времени пробуждения.",
@@ -94,7 +96,7 @@ QVector<QVector<QString>> script::getCoffeMachine() {
 /**
  * Логика функции для двери
  */
-QVector<QVector<QString>> script::getDoor() {
+QVector<QVector<QString>> Script::getDoor() {
     // Implement the function logic here
     morning = {
         "Автоматическое отпирание входной двери к назначенному времени подъема.",
@@ -117,7 +119,7 @@ QVector<QVector<QString>> script::getDoor() {
 /**
  * Логика функции для домофона
  */
-QVector<QVector<QString>> script::getIntercom() {
+QVector<QVector<QString>> Script::getIntercom() {
     // Implement the function logic here
     morning = {
         "Автоматическое включение режима \"Уехал\" по расписанию или с помощью геолокации.",
@@ -140,7 +142,7 @@ QVector<QVector<QString>> script::getIntercom() {
 /**
  * Логика функции для чайника
  */
-QVector<QVector<QString>> script::getKettle() {
+QVector<QVector<QString>> Script::getKettle() {
     // Implement the function logic here
     morning = {
         "Автоматическое кипячение воды к назначенному времени пробуждения.",
@@ -163,7 +165,7 @@ QVector<QVector<QString>> script::getKettle() {
 /**
  * Логика функции для света
  */
-QVector<QVector<QString>> script::getLight() {
+QVector<QVector<QString>> Script::getLight() {
     // Implement the function logic here
     morning = {
         "Освещение включается постепенно и нарастает в течение 30 минут до времени пробуждения ",
@@ -186,7 +188,7 @@ QVector<QVector<QString>> script::getLight() {
 /**
  * Логика функции для выключателя
  */
-QVector<QVector<QString>> script::getLightSwitch() {
+QVector<QVector<QString>> Script::getLightSwitch() {
     // Implement the function logic here
     morning = {
         "Выключатель подсвечивается, когда на него не падает свет.",
@@ -209,7 +211,7 @@ QVector<QVector<QString>> script::getLightSwitch() {
 /**
  * Логика функции для замков
  */
-QVector<QVector<QString>> script::getLocks() {
+QVector<QVector<QString>> Script::getLocks() {
     // Implement the function logic here
     morning = {
         "Автоматическое отпирание входной двери по расписанию к определенному времени утром.",
@@ -232,7 +234,7 @@ QVector<QVector<QString>> script::getLocks() {
 /**
  * Логика функции для робота-пылесоса
  */
-QVector<QVector<QString>> script::getRobotCleaner() {
+QVector<QVector<QString>> Script::getRobotCleaner() {
     // Implement the function logic here
     morning = {
         "Запуск уборки по расписанию или голосовой команде перед выходом из дома, чтобы вернуться в чистое помещение.",
@@ -255,7 +257,7 @@ QVector<QVector<QString>> script::getRobotCleaner() {
 /**
  * Логика функции для системы охраны
  */
-QVector<QVector<QString>> script::getSecuritySystem() {
+QVector<QVector<QString>> Script::getSecuritySystem() {
     // Implement the function logic here
     morning = {
         "",
@@ -278,7 +280,7 @@ QVector<QVector<QString>> script::getSecuritySystem() {
 /**
  * Логика функции для умной колонки
  */
-QVector<QVector<QString>> script::getSmartSpeaker() {
+QVector<QVector<QString>> Script::getSmartSpeaker() {
     // Implement the function logic here
     morning = {
         "",
@@ -301,7 +303,7 @@ QVector<QVector<QString>> script::getSmartSpeaker() {
 /**
  * Логика функции для розетки
  */
-QVector<QVector<QString>> script::getSocket() {
+QVector<QVector<QString>> Script::getSocket() {
     // Implement the function logic here
     morning = {
         "",
