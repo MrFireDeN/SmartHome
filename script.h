@@ -4,7 +4,7 @@
 #include <QString>
 #include <QVector>
 
-class script
+class Script
 {
 private:
     QString thing;
@@ -13,7 +13,7 @@ private:
     QVector<QString> evening;
 
 public:
-    script();
+    Script();
 
     QVector<QVector<QString>> getFrige();           // Холодильник
     QVector<QVector<QString>> getAirConditioner();  // Кондиционер

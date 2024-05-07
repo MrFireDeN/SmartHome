@@ -91,7 +91,7 @@ void MainWindow::setupSettings() {
 // Настройка вкладки устройства
 void MainWindow::setupThings(){
     connect(ui->frige,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Холодильник
-        checkedThings[0] = checked;
+        changeScripts(scripts.getFrige(), 0, checked);
     });
     connect(ui->airConditioner,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Кондиционер
         checkedThings[1] = checked;
@@ -136,9 +136,15 @@ void MainWindow::setupThings(){
 }
 // Метод для настройки сценариев приложения
 void MainWindow::setupScript() {
-    changeMorningScripts();
-    changeDayScripts();
-    changeEveningScripts();
+    areaMorning    = ui->scrollAreaMorningScript;
+    areaDay        = ui->scrollAreaDayScript;
+    areaEvening    = ui->scrollAreaEveningScript;
+
+    for (int i = 0; i < 3; i++) {
+        scriptTexts[0].append(addCard(layoutMorning, areaMorning));
+        scriptTexts[1].append(addCard(layoutDay, areaDay));
+        scriptTexts[2].append(addCard(layoutEvening, areaEvening));
+    }
 }
 
 // Метод для обновления текста приветствия в зависимости от времени суток
@@ -162,7 +168,7 @@ void MainWindow::changeWelcome() {
 }
 
 // Добавление карточки
-void MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
+QTextBrowser* MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
     QTextBrowser *script = new QTextBrowser();
 
     script->setText("Утром: \n"
@@ -180,6 +186,8 @@ void MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
     areaWidget->setLayout(layout);
 
     area->setWidget(areaWidget);
+
+    return script;
 }
 
 // Удаление карточки
@@ -202,34 +210,23 @@ void MainWindow::setCardStyle(QTextBrowser* card, QString color) {
     card->setStyleSheet(QString("QTextBrowser { background-color: %1; }").arg(color));
 }
 
-// Метод изменения утренних скриптов
-void MainWindow::changeMorningScripts() {
+// Метод изменения скриптов
+void MainWindow::changeScripts(QVector<QVector<QString>> thingText, int place, bool status) {
+    for (int dayTime = 0; dayTime < 3; dayTime++) {
+        for (int card = 0; card < 3; card++) {
+            QTextBrowser* item = scriptTexts[dayTime][card];
+            QString currentText = item->toPlainText();
+            QString newText = thingText[dayTime][card];
 
-    // Создаем горизонтальный Layout для содержимого QScrollArea
-    QHBoxLayout *layout = new QHBoxLayout();
-    QScrollArea *area = ui->scrollAreaMorningScript;
-
-    addCard(layout, area);
-}
-
-// Метод изменения дневных скриптов
-void MainWindow::changeDayScripts() {
-    QHBoxLayout *layout = new QHBoxLayout();
-    QScrollArea *area = ui->scrollAreaDayScript;
-
-    addCard(layout, area);
-    addCard(layout, area);
-    addCard(layout, area);
-    addCard(layout, area);
-    addCard(layout, area);
-}
-
-// Метод изменения дневных скриптов
-void MainWindow::changeEveningScripts() {
-    QHBoxLayout *layout = new QHBoxLayout();
-    QScrollArea *area = ui->scrollAreaEveningScript;
-
-    addCard(layout, area);
-    addCard(layout, area);
-    addCard(layout, area);
+            if (status) {
+                QStringList textLines = currentText.split("\n");
+                textLines[place] += newText;
+                item->setText(textLines.join("\n"));
+            }
+            else {
+                currentText.remove(newText);
+                item->setText(currentText);
+            }
+        }
+    }
 }
