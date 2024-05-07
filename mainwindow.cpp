@@ -91,7 +91,7 @@ void MainWindow::setupSettings() {
 // Настройка вкладки устройства
 void MainWindow::setupThings(){
     connect(ui->frige,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Холодильник
-        changeScripts(scripts.getFrige(), 0, checked);
+        changeScripts(scripts.getFrige(), 0, checked, "Холодильник");
     });
     connect(ui->airConditioner,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Кондиционер
         checkedThings[1] = checked;
@@ -171,9 +171,7 @@ void MainWindow::changeWelcome() {
 QTextBrowser* MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
     QTextBrowser *script = new QTextBrowser();
 
-    script->setText("Утром: \n"
-                    "Днем: \n"
-                    "Вечером: ");
+    script->setText("");
 
     script->setMinimumHeight(120);
     script->setMaximumHeight(167);
@@ -211,17 +209,17 @@ void MainWindow::setCardStyle(QTextBrowser* card, QString color) {
 }
 
 // Метод изменения скриптов
-void MainWindow::changeScripts(QVector<QVector<QString>> thingText, int place, bool status) {
+void MainWindow::changeScripts(QVector<QVector<QString>> thingText, int place, bool status, QString thingName) {
     for (int dayTime = 0; dayTime < 3; dayTime++) {
         for (int card = 0; card < 3; card++) {
             QTextBrowser* item = scriptTexts[dayTime][card];
             QString currentText = item->toPlainText();
-            QString newText = thingText[dayTime][card];
+            QString newText = thingName + ": " + thingText[dayTime][card];
 
             if (status) {
-                QStringList textLines = currentText.split("\n");
+                QStringList textLines = currentText.split(".");
                 textLines[place] += newText;
-                item->setText(textLines.join("\n"));
+                item->setText(textLines.join(""));
             }
             else {
                 currentText.remove(newText);
