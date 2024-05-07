@@ -4,6 +4,9 @@
 #include "qdatetime.h"
 #include <QMainWindow>
 #include <QScrollArea>
+#include <QHBoxLayout>
+#include <QTextBrowser>
+#include <script.h>
 
 // Объявление пространства имен для UI
 QT_BEGIN_NAMESPACE
@@ -32,10 +35,16 @@ private:
     void changeMorningScripts(); // Метод изменения утренних скриптов
     void changeDayScripts(); // Метод изменения дневных скриптов
     void changeEveningScripts(); // Метод изменения вечерних скриптов
+    void addCard(QHBoxLayout*, QScrollArea*);
+    void deleteCard(QHBoxLayout*, QScrollArea*);
+    void setCardStyle(QTextBrowser*, QString);
 
     QString name; // Имя пользователя
     QTime globalTime; // Глобальное время, используемое в приложении
     int weekday = 0; // Текущий день недели (по умолчанию 0)
+
+    script scripts;
+    bool checkedThings[14];
 };
 
 #endif // MAINWINDOW_H

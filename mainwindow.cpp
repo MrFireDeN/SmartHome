@@ -90,48 +90,47 @@ void MainWindow::setupSettings() {
 }
 // Настройка вкладки устройства
 void MainWindow::setupThings(){
-
-    connect(ui->frige,&QCheckBox::stateChanged,this,[this](){ // Устройство: Холодильник
-
+    connect(ui->frige,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Холодильник
+        checkedThings[0] = checked;
     });
-    connect(ui->airConditioner,&QCheckBox::stateChanged,this,[this](){ // Устройство: Кондиционер
-
+    connect(ui->airConditioner,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Кондиционер
+        checkedThings[1] = checked;
     });
-    connect(ui->cameras,&QCheckBox::stateChanged,this,[this](){ // Устройство: Камеры
-
+    connect(ui->cameras,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Камеры
+        checkedThings[2] = checked;
     });
-    connect(ui->coffeMachine,&QCheckBox::stateChanged,this,[this](){ // Устройство: Кофемашина
-
+    connect(ui->coffeMachine,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Кофемашина
+        checkedThings[3] = checked;
     });
-    connect(ui->door,&QCheckBox::stateChanged,this,[this](){ // Устройство: Дверь
-
+    connect(ui->door,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Дверь
+        checkedThings[4] = checked;
     });
-    connect(ui->intercom,&QCheckBox::stateChanged,this,[this](){ // Устройство: Домофон
-
+    connect(ui->intercom,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Домофон
+        checkedThings[5] = checked;
     });
-    connect(ui->kettle,&QCheckBox::stateChanged,this,[this](){ // Устройство: Чайник
-
+    connect(ui->kettle,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Чайник
+        checkedThings[6] = checked;
     });
-    connect(ui->light,&QCheckBox::stateChanged,this,[this](){ // Устройство: Свет
-
+    connect(ui->light,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Свет
+        checkedThings[7] = checked;
     });
-    connect(ui->lightSwitch,&QCheckBox::stateChanged,this,[this](){ // Устройство: Переключатель света
-
+    connect(ui->lightSwitch,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Переключатель света
+        checkedThings[8] = checked;
     });
-    connect(ui->locks,&QCheckBox::stateChanged,this,[this](){ // Устройство: Замок
-
+    connect(ui->locks,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Замок
+        checkedThings[9] = checked;
     });
-    connect(ui->robotCleaner,&QCheckBox::stateChanged,this,[this](){ // Устройство: Робот пылесос
-
+    connect(ui->robotCleaner,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Робот пылесос
+        checkedThings[10] = checked;
     });
-    connect(ui->securitySystem,&QCheckBox::stateChanged,this,[this](){ // Устройство: Система безопасности
-
+    connect(ui->securitySystem,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Система безопасности
+        checkedThings[11] = checked;
     });
-    connect(ui->smartSpeaker,&QCheckBox::stateChanged,this,[this](){ // Устройство: Умная колонка
-
+    connect(ui->smartSpeaker,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Умная колонка
+        checkedThings[12] = checked;
     });
-    connect(ui->socket,&QCheckBox::stateChanged,this,[this](){ // Устройство: Розетка
-
+    connect(ui->socket,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Розетка
+        checkedThings[13] = checked;
     });
 
 }
@@ -162,159 +161,75 @@ void MainWindow::changeWelcome() {
     ui->labelWelcome->setText(welcome);
 }
 
+// Добавление карточки
+void MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
+    QTextBrowser *script = new QTextBrowser();
+
+    script->setText("Утром: \n"
+                    "Днем: \n"
+                    "Вечером: ");
+
+    script->setMinimumHeight(120);
+    script->setMaximumHeight(167);
+    script->setMinimumWidth(200);
+    script->setMaximumWidth(200);
+
+    layout->addWidget(script);
+
+    QWidget *areaWidget = new QWidget();
+    areaWidget->setLayout(layout);
+
+    area->setWidget(areaWidget);
+}
+
+// Удаление карточки
+void MainWindow::deleteCard(QHBoxLayout* layout, QScrollArea* area) {
+    if (layout->count() > 0) {
+        QLayoutItem* item = layout->takeAt(layout->count() - 1);
+        if (item->widget()) {
+            delete item->widget();
+        }
+        delete item;
+
+        QWidget *areaWidget = new QWidget();
+        areaWidget->setLayout(layout);
+
+        area->setWidget(areaWidget);
+    }
+}
+
+void MainWindow::setCardStyle(QTextBrowser* card, QString color) {
+    card->setStyleSheet(QString("QTextBrowser { background-color: %1; }").arg(color));
+}
+
 // Метод изменения утренних скриптов
 void MainWindow::changeMorningScripts() {
 
     // Создаем горизонтальный Layout для содержимого QScrollArea
     QHBoxLayout *layout = new QHBoxLayout();
+    QScrollArea *area = ui->scrollAreaMorningScript;
 
-    // Создаем QTextBrowser и добавляем его в Layout
-    QTextBrowser *script = new QTextBrowser();
-    script->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script->setMinimumHeight(120);
-    script->setMaximumHeight(167);
-    script->setMinimumWidth(200);
-    script->setMaximumWidth(200);
-    script->setStyleSheet("QTextBrowser { background-color: purple; }");
-    layout->addWidget(script);
-
-    // Повторяем для остальных QTextBrowser
-    QTextBrowser *script1 = new QTextBrowser();
-    script1->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script1->setMinimumHeight(120);
-    script1->setMaximumHeight(167);
-    script1->setMinimumWidth(200);
-    script1->setMaximumWidth(200);
-    script1->setStyleSheet("QTextBrowser { background-color: red; }");
-    layout->addWidget(script1);
-
-    QTextBrowser *script2 = new QTextBrowser();
-    script2->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script2->setMinimumHeight(120);
-    script2->setMaximumHeight(167);
-    script2->setMinimumWidth(200);
-    script2->setMaximumWidth(200);
-    script2->setStyleSheet("QTextBrowser { background-color: green; }");
-    layout->addWidget(script2);
-
-    QTextBrowser *script3 = new QTextBrowser();
-    script3->setText("Утром: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script3->setMinimumHeight(120);
-    script3->setMaximumHeight(167);
-    script3->setMinimumWidth(200);
-    script3->setMaximumWidth(200);
-    script3->setStyleSheet("QTextBrowser { background-color: blue; }");
-    layout->addWidget(script3);
-
-    // Создаем QWidget для содержимого QScrollArea и устанавливаем в него Layout
-    QWidget *scrollAreaWidgetMorningScript = new QWidget();
-    scrollAreaWidgetMorningScript->setLayout(layout);
-
-    // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
-    ui->scrollAreaMorningScript->setWidget(scrollAreaWidgetMorningScript);
+    addCard(layout, area);
 }
 
 // Метод изменения дневных скриптов
 void MainWindow::changeDayScripts() {
-
-    // Создаем горизонтальный Layout для содержимого QScrollArea
     QHBoxLayout *layout = new QHBoxLayout();
+    QScrollArea *area = ui->scrollAreaDayScript;
 
-    // Создаем QTextBrowser и добавляем его в Layout
-    QTextBrowser *script = new QTextBrowser();
-    script->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script->setMinimumHeight(120);
-    script->setMaximumHeight(167);
-    script->setMinimumWidth(200);
-    script->setMaximumWidth(200);
-    script->setStyleSheet("QTextBrowser { background-color: purple; }");
-    layout->addWidget(script);
-
-    // Повторяем для остальных QTextBrowser
-    QTextBrowser *script1 = new QTextBrowser();
-    script1->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script1->setMinimumHeight(120);
-    script1->setMaximumHeight(167);
-    script1->setMinimumWidth(200);
-    script1->setMaximumWidth(200);
-    script1->setStyleSheet("QTextBrowser { background-color: red; }");
-    layout->addWidget(script1);
-
-    QTextBrowser *script2 = new QTextBrowser();
-    script2->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script2->setMinimumHeight(120);
-    script2->setMaximumHeight(167);
-    script2->setMinimumWidth(200);
-    script2->setMaximumWidth(200);
-    script2->setStyleSheet("QTextBrowser { background-color: green; }");
-    layout->addWidget(script2);
-
-    QTextBrowser *script3 = new QTextBrowser();
-    script3->setText("Днём: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script3->setMinimumHeight(120);
-    script3->setMaximumHeight(167);
-    script3->setMinimumWidth(200);
-    script3->setMaximumWidth(200);
-    script3->setStyleSheet("QTextBrowser { background-color: blue; }");
-    layout->addWidget(script3);
-
-    // Создаем QWidget для содержимого QScrollArea и устанавливаем в него Layout
-    QWidget *scrollAreaWidgetMorningScript = new QWidget();
-    scrollAreaWidgetMorningScript->setLayout(layout);
-
-    // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
-    ui->scrollAreaDayScript->setWidget(scrollAreaWidgetMorningScript);
+    addCard(layout, area);
+    addCard(layout, area);
+    addCard(layout, area);
+    addCard(layout, area);
+    addCard(layout, area);
 }
 
 // Метод изменения дневных скриптов
 void MainWindow::changeEveningScripts() {
-
-    // Создаем горизонтальный Layout для содержимого QScrollArea
     QHBoxLayout *layout = new QHBoxLayout();
+    QScrollArea *area = ui->scrollAreaEveningScript;
 
-    // Создаем QTextBrowser и добавляем его в Layout
-    QTextBrowser *script = new QTextBrowser();
-    script->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script->setMinimumHeight(120);
-    script->setMaximumHeight(167);
-    script->setMinimumWidth(200);
-    script->setMaximumWidth(200);
-    script->setStyleSheet("QTextBrowser { background-color: purple; }");
-    layout->addWidget(script);
-
-    // Повторяем для остальных QTextBrowser
-    QTextBrowser *script1 = new QTextBrowser();
-    script1->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script1->setMinimumHeight(120);
-    script1->setMaximumHeight(167);
-    script1->setMinimumWidth(200);
-    script1->setMaximumWidth(200);
-    script1->setStyleSheet("QTextBrowser { background-color: red; }");
-    layout->addWidget(script1);
-
-    QTextBrowser *script2 = new QTextBrowser();
-    script2->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script2->setMinimumHeight(120);
-    script2->setMaximumHeight(167);
-    script2->setMinimumWidth(200);
-    script2->setMaximumWidth(200);
-    script2->setStyleSheet("QTextBrowser { background-color: green; }");
-    layout->addWidget(script2);
-
-    QTextBrowser *script3 = new QTextBrowser();
-    script3->setText("Вечером: датчик освещенности включает свет, кофемашина автоматически готовит кофе, термостат повышает температуру. Утренний рассвет начинается.");
-    script3->setMinimumHeight(120);
-    script3->setMaximumHeight(167);
-    script3->setMinimumWidth(200);
-    script3->setMaximumWidth(200);
-    script3->setStyleSheet("QTextBrowser { background-color: blue; }");
-    layout->addWidget(script3);
-
-    // Создаем QWidget для содержимого QScrollArea и устанавливаем в него Layout
-    QWidget *scrollAreaWidgetMorningScript = new QWidget();
-    scrollAreaWidgetMorningScript->setLayout(layout);
-
-    // Устанавливаем scrollAreaWidgetMorningScript в качестве содержимого QScrollArea
-    ui->scrollAreaEveningScript->setWidget(scrollAreaWidgetMorningScript);
-
+    addCard(layout, area);
+    addCard(layout, area);
+    addCard(layout, area);
 }
