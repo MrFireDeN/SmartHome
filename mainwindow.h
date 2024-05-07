@@ -32,10 +32,8 @@ private:
     void setupThings(); // Метод для настройки используемых устройств
 
     void changeWelcome(); // Метод для обновления приветствия
-    void changeMorningScripts(); // Метод изменения утренних скриптов
-    void changeDayScripts(); // Метод изменения дневных скриптов
-    void changeEveningScripts(); // Метод изменения вечерних скриптов
-    void addCard(QHBoxLayout*, QScrollArea*);
+    void changeScripts(QVector<QVector<QString>>, int, bool); // Метод изменения скриптов
+    QTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
     void deleteCard(QHBoxLayout*, QScrollArea*);
     void setCardStyle(QTextBrowser*, QString);
 
@@ -43,8 +41,18 @@ private:
     QTime globalTime; // Глобальное время, используемое в приложении
     int weekday = 0; // Текущий день недели (по умолчанию 0)
 
-    script scripts;
+    Script scripts;
     bool checkedThings[14];
+
+    QHBoxLayout *layoutMorning  = new QHBoxLayout();
+    QHBoxLayout *layoutDay      = new QHBoxLayout();
+    QHBoxLayout *layoutEvening  = new QHBoxLayout();
+
+    QScrollArea *areaMorning;
+    QScrollArea *areaDay;
+    QScrollArea *areaEvening;
+
+    QVector<QVector<QTextBrowser*>> scriptTexts = {{}, {}, {}};
 };
 
 #endif // MAINWINDOW_H
