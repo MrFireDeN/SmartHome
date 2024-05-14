@@ -36,7 +36,7 @@ private:
     void changeScripts(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
     CustomTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
     void deleteCard(QHBoxLayout*, QScrollArea*);
-    void setCardStyle(QTextBrowser*, QString);
+    void setCardStyle(CustomTextBrowser*, QString);
 
     QString name; // Имя пользователя
     QTime globalTime; // Глобальное время, используемое в приложении

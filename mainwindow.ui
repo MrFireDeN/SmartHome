@@ -14,29 +14,28 @@
    <string>Умный дом</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="homepage">
        <attribute name="title">
         <string>Домашний экран</string>
        </attribute>
-       <widget class="QLabel" name="labelWelcome">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>181</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Доброе утро, Имя!</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="labelWelcome">
+          <property name="text">
+           <string>Доброе утро, Имя!</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="textBrowserWelcome"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="profile">
        <attribute name="title">

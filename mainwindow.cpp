@@ -152,7 +152,18 @@ void MainWindow::setupScript() {
             connect(textBrowser, &CustomTextBrowser::clicked, this, [this, dayTime, card]() {
                 qDebug() << "Кликнуто в scriptTexts[" << dayTime << "][" << card << "]";
 
-                // TODO
+                QVector<CustomTextBrowser*> items = scriptTexts[dayTime];
+                for (int i = 0; i < items.size(); ++i) {
+                    if (i != card) {
+                        setCardStyle(items[i], "none");
+                        items[i]->setSelected(false);
+                    }
+                    else {
+                        setCardStyle(items[card], "green");
+                        items[card]->setSelected(true);
+                    }
+                    changeWelcome();
+                }
             });
         }
     }
@@ -163,15 +174,40 @@ void MainWindow::changeWelcome() {
     QString welcome; // Строка для хранения приветствия
     int hour = globalTime.hour(); // Получение текущего часа
 
+    CustomTextBrowser* item;
+
     // Определение приветствия в зависимости от времени суток
     if (hour >= 4 && hour <= 10) {
         welcome = "Доброе утро, " + name;
+
+        for (int card = 0; card < scriptTexts[0].size(); ++card) {
+            item = scriptTexts[0][card];
+            if (item->isSelected())
+                ui->textBrowserWelcome->setText(item->toPlainText());
+        }
+
     } else if (hour > 10 && hour <= 16) {
         welcome = "Добрый день, " + name;
+
+        for (int card = 0; card < scriptTexts[1].size(); ++card) {
+            item = scriptTexts[1][card];
+            if (item->isSelected())
+                ui->textBrowserWelcome->setText(item->toPlainText());
+        }
+
     } else if (hour > 16 && hour <= 22) {
         welcome = "Добрый вечер, " + name;
+
+        for (int card = 0; card < scriptTexts[2].size(); ++card) {
+            item = scriptTexts[2][card];
+            if (item->isSelected())
+                ui->textBrowserWelcome->setText(item->toPlainText());
+        }
+
     } else {
         welcome = "Доброй ночи, " + name;
+
+        ui->textBrowserWelcome->setText("Дом спит)");
     }
 
     // Установка текста приветствия в пользовательский интерфейс
@@ -213,7 +249,7 @@ void MainWindow::deleteCard(QHBoxLayout* layout, QScrollArea* area) {
     }
 }
 
-void MainWindow::setCardStyle(QTextBrowser* card, QString color) {
+void MainWindow::setCardStyle(CustomTextBrowser* card, QString color) {
     card->setStyleSheet(QString("QTextBrowser { background-color: %1; }").arg(color));
 }
 
@@ -233,6 +269,7 @@ void MainWindow::changeScripts(QVector<QVector<QString>> thingText, bool status,
                 currentText.remove(newText + '\n');
                 item->setText(currentText);
             }
+            changeWelcome();
         }
     }
 }

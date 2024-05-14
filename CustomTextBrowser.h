@@ -9,6 +9,14 @@ class CustomTextBrowser : public QTextBrowser {
 public:
     using QTextBrowser::QTextBrowser; // Использование конструктора базового класса
 
+    bool isSelected() const {
+        return selected;
+    }
+
+    void setSelected(bool status) {
+        selected = status;
+    }
+
 protected:
     void mousePressEvent(QMouseEvent *event) override {
         if (event->button() == Qt::LeftButton) {
@@ -19,6 +27,9 @@ protected:
 
 signals:
     void clicked();
+
+private:
+    bool selected = false;
 };
 
 #endif // CUSTOMTEXTBROWSER_H
