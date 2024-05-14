@@ -145,6 +145,17 @@ void MainWindow::setupScript() {
         scriptTexts[1].append(addCard(layoutDay, areaDay));
         scriptTexts[2].append(addCard(layoutEvening, areaEvening));
     }
+
+    for (int dayTime = 0; dayTime < scriptTexts.size(); ++dayTime) {
+        for (int card = 0; card < scriptTexts[dayTime].size(); ++card) {
+            CustomTextBrowser* textBrowser = scriptTexts[dayTime][card];
+            connect(textBrowser, &CustomTextBrowser::clicked, this, [this, dayTime, card]() {
+                qDebug() << "Кликнуто в scriptTexts[" << dayTime << "][" << card << "]";
+
+                // TODO
+            });
+        }
+    }
 }
 
 // Метод для обновления текста приветствия в зависимости от времени суток
@@ -168,8 +179,8 @@ void MainWindow::changeWelcome() {
 }
 
 // Добавление карточки
-QTextBrowser* MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
-    QTextBrowser *script = new QTextBrowser();
+CustomTextBrowser* MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
+    CustomTextBrowser *script = new CustomTextBrowser();
 
     script->setText("");
 
@@ -210,7 +221,7 @@ void MainWindow::setCardStyle(QTextBrowser* card, QString color) {
 void MainWindow::changeScripts(QVector<QVector<QString>> thingText, bool status, QString thingName) {
     for (int dayTime = 0; dayTime < 3; dayTime++) {
         for (int card = 0; card < 3; card++) {
-            QTextBrowser* item = scriptTexts[dayTime][card];
+            CustomTextBrowser* item = scriptTexts[dayTime][card];
             QString currentText = item->toPlainText();
             QString newText = thingName + ": " + thingText[dayTime][card];
 

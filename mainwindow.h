@@ -6,6 +6,7 @@
 #include <QScrollArea>
 #include <QHBoxLayout>
 #include <QTextBrowser>
+#include <CustomTextBrowser.h>
 #include <script.h>
 
 // Объявление пространства имен для UI
@@ -33,7 +34,7 @@ private:
 
     void changeWelcome(); // Метод для обновления приветствия
     void changeScripts(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
-    QTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
+    CustomTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
     void deleteCard(QHBoxLayout*, QScrollArea*);
     void setCardStyle(QTextBrowser*, QString);
 
@@ -52,7 +53,7 @@ private:
     QScrollArea *areaDay;
     QScrollArea *areaEvening;
 
-    QVector<QVector<QTextBrowser*>> scriptTexts = {{}, {}, {}};
+    QVector<QVector<CustomTextBrowser*>> scriptTexts = {{}, {}, {}};
 };
 
 #endif // MAINWINDOW_H

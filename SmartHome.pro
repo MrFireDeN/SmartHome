@@ -14,6 +14,7 @@ SOURCES += \
     script.cpp
 
 HEADERS += \
+    CustomTextBrowser.h \
     mainwindow.h \
     script.h
 
