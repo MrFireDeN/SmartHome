@@ -32,7 +32,7 @@ private:
     void setupThings(); // Метод для настройки используемых устройств
 
     void changeWelcome(); // Метод для обновления приветствия
-    void changeScripts(QVector<QVector<QString>>, int, bool, QString); // Метод изменения скриптов
+    void changeScripts(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
     QTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
     void deleteCard(QHBoxLayout*, QScrollArea*);
     void setCardStyle(QTextBrowser*, QString);

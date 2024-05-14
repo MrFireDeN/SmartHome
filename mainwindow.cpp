@@ -91,46 +91,46 @@ void MainWindow::setupSettings() {
 // Настройка вкладки устройства
 void MainWindow::setupThings(){
     connect(ui->frige,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Холодильник
-        changeScripts(scripts.getFrige(), 0, checked, "Холодильник");
+        changeScripts(scripts.getFrige(), checked, "Холодильник");
     });
     connect(ui->airConditioner,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Кондиционер
-        checkedThings[1] = checked;
+        changeScripts(scripts.getAirConditioner(), checked, "Кондиционер");
     });
     connect(ui->cameras,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Камеры
-        checkedThings[2] = checked;
+        changeScripts(scripts.getCameras(), checked, "Камеры");
     });
     connect(ui->coffeMachine,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Кофемашина
-        checkedThings[3] = checked;
+        changeScripts(scripts.getCoffeMachine(), checked, "Кофемашина");
     });
     connect(ui->door,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Дверь
-        checkedThings[4] = checked;
+        changeScripts(scripts.getDoor(), checked, "Дверь");
     });
     connect(ui->intercom,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Домофон
-        checkedThings[5] = checked;
+        changeScripts(scripts.getIntercom(), checked, "Домофон");
     });
     connect(ui->kettle,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Чайник
-        checkedThings[6] = checked;
+        changeScripts(scripts.getKettle(), checked, "Чайник");
     });
     connect(ui->light,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Свет
-        checkedThings[7] = checked;
+        changeScripts(scripts.getLight(), checked, "Свет");
     });
     connect(ui->lightSwitch,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Переключатель света
-        checkedThings[8] = checked;
+        changeScripts(scripts.getLightSwitch(), checked, "Переключатель света");
     });
     connect(ui->locks,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Замок
-        checkedThings[9] = checked;
+        changeScripts(scripts.getLocks(), checked, "Замок");
     });
     connect(ui->robotCleaner,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Робот пылесос
-        checkedThings[10] = checked;
+        changeScripts(scripts.getRobotCleaner(), checked, "Робот пылесос");
     });
     connect(ui->securitySystem,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Система безопасности
-        checkedThings[11] = checked;
+        changeScripts(scripts.getSecuritySystem(), checked, "Система безопасности");
     });
     connect(ui->smartSpeaker,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Умная колонка
-        checkedThings[12] = checked;
+        changeScripts(scripts.getSmartSpeaker(), checked, "Умная колонка");
     });
     connect(ui->socket,&QCheckBox::stateChanged,this,[this](bool checked){ // Устройство: Розетка
-        checkedThings[13] = checked;
+        changeScripts(scripts.getSocket(), checked, "Розетка");
     });
 
 }
@@ -173,10 +173,8 @@ QTextBrowser* MainWindow::addCard(QHBoxLayout* layout, QScrollArea* area) {
 
     script->setText("");
 
-    script->setMinimumHeight(120);
-    script->setMaximumHeight(167);
-    script->setMinimumWidth(200);
-    script->setMaximumWidth(200);
+    script->setMinimumWidth(area->minimumWidth()/3);
+    script->setMaximumWidth(area->maximumWidth()/3);
 
     layout->addWidget(script);
 
@@ -209,7 +207,7 @@ void MainWindow::setCardStyle(QTextBrowser* card, QString color) {
 }
 
 // Метод изменения скриптов
-void MainWindow::changeScripts(QVector<QVector<QString>> thingText, int place, bool status, QString thingName) {
+void MainWindow::changeScripts(QVector<QVector<QString>> thingText, bool status, QString thingName) {
     for (int dayTime = 0; dayTime < 3; dayTime++) {
         for (int card = 0; card < 3; card++) {
             QTextBrowser* item = scriptTexts[dayTime][card];
@@ -217,12 +215,11 @@ void MainWindow::changeScripts(QVector<QVector<QString>> thingText, int place, b
             QString newText = thingName + ": " + thingText[dayTime][card];
 
             if (status) {
-                QStringList textLines = currentText.split(".");
-                textLines[place] += newText;
-                item->setText(textLines.join(""));
+                currentText += newText + '\n';
+                item->setText(currentText);
             }
             else {
-                currentText.remove(newText);
+                currentText.remove(newText + '\n');
                 item->setText(currentText);
             }
         }
