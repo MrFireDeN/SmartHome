@@ -322,3 +322,22 @@ QVector<QVector<QString>> Script::getSocket() {
     };
     return {morning, day, evening};
 }
+
+QString Script::getClimat(int temperature,int comfort=25) {
+    QString climat = "";
+
+    // Если температура выше
+    if (temperature > comfort + 5) {
+        climat = "Температура выше комфортной на " +
+                 QString::number(temperature-comfort) + "°С " +
+                 "Включен кондиционер.";
+    }
+    // Если температура ниже
+    else if (temperature < comfort - 5) {
+        climat = "Температура ниже комфортной на " +
+                 QString::number(comfort-temperature) + "°С " +
+                 "Включено отопление.";
+    }
+
+    return climat;
+}
