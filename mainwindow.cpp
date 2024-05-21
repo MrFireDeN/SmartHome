@@ -84,8 +84,17 @@ void MainWindow::setupSettings() {
     });
 
     //Настройка поведения при изменении времени на дорогу
-    connect(ui->travelTime, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](){
+    connect(ui->travelTime, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int value){
 
+    });
+
+    connect(ui->spinBoxTemp, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int value){
+        changeWelcome(); // Обновление приветствия
+    });
+
+
+    connect(ui->spinBoxComfTemp, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int value){
+        changeWelcome(); // Обновление приветствия
     });
 }
 // Настройка вкладки устройства
@@ -173,8 +182,11 @@ void MainWindow::setupScript() {
 void MainWindow::changeWelcome() {
     QString welcome; // Строка для хранения приветствия
     int hour = globalTime.hour(); // Получение текущего часа
+    int temp = ui->spinBoxTemp->value(); // Получение текущей температуры
+    int comftemp = ui->spinBoxComfTemp->value();
 
     CustomTextBrowser* item;
+    QString maintext;
 
     // Определение приветствия в зависимости от времени суток
     if (hour >= 4 && hour <= 10) {
@@ -183,7 +195,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[0].size(); ++card) {
             item = scriptTexts[0][card];
             if (item->isSelected())
-                ui->textBrowserWelcome->setText(item->toPlainText());
+                maintext = item->toPlainText();
         }
 
     } else if (hour > 10 && hour <= 16) {
@@ -192,7 +204,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[1].size(); ++card) {
             item = scriptTexts[1][card];
             if (item->isSelected())
-                ui->textBrowserWelcome->setText(item->toPlainText());
+                maintext = item->toPlainText();
         }
 
     } else if (hour > 16 && hour <= 22) {
@@ -201,17 +213,22 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[2].size(); ++card) {
             item = scriptTexts[2][card];
             if (item->isSelected())
-                ui->textBrowserWelcome->setText(item->toPlainText());
+                maintext = item->toPlainText();
         }
 
     } else {
         welcome = "Доброй ночи, " + name;
 
-        ui->textBrowserWelcome->setText("Дом спит)");
+        maintext = "Дом спит)";
     }
+
+    QString climat = scripts.getClimat(temp, comftemp);
+    if (!climat.isEmpty())
+        maintext += "\n" + climat;
 
     // Установка текста приветствия в пользовательский интерфейс
     ui->labelWelcome->setText(welcome);
+    ui->textBrowserWelcome->setText(maintext);
 }
 
 // Добавление карточки

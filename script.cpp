@@ -329,13 +329,13 @@ QString Script::getClimat(int temperature,int comfort=25) {
     // Если температура выше
     if (temperature > comfort + 5) {
         climat = "Температура выше комфортной на " +
-                 QString::number(temperature-comfort) + "°С " +
+                 QString::number(temperature-comfort) + "°С. " +
                  "Включен кондиционер.";
     }
     // Если температура ниже
     else if (temperature < comfort - 5) {
         climat = "Температура ниже комфортной на " +
-                 QString::number(comfort-temperature) + "°С " +
+                 QString::number(comfort-temperature) + "°С. " +
                  "Включено отопление.";
     }
 
