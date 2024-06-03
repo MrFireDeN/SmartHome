@@ -85,6 +85,7 @@ void MainWindow::setupSettings() {
 
     //Настройка поведения при изменении времени на дорогу
     connect(ui->travelTime, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int value){
+        changeWelcome();
 
     });
 
@@ -200,17 +201,28 @@ QString MainWindow::calculateClock(){
             goOutTime_minutes.append(goOutTime[i]);
         }
     }
-    int clockTime_minutes = goOutTime_minutes.toInt()-(travelTime.toInt()+10); // 10 это время на приготовления в мин.
+    int clockTime_minutes = goOutTime_minutes.toInt()-travelTime.toInt()-10; // 10 это время на приготовления в мин.
     if(clockTime_minutes<0)
     {
         goOutTime_hours = QString::number(goOutTime_hours.toInt()-1);
+        if(clockTime_minutes<-60)
+        {
+            goOutTime_hours = QString::number(goOutTime_hours.toInt()-1);
+           clockTime_minutes = clockTime_minutes + 60;
+        }
         clockTime_minutes = 60 + clockTime_minutes;
+
     }
 
     QString clockTime;
 
     clockTime.append(goOutTime_hours);
     clockTime.append(":");
+    if(clockTime_minutes==0)
+    {
+        clockTime.append("00");
+        return clockTime;
+    }
     clockTime.append(QString::number(clockTime_minutes));
 
     return clockTime;
@@ -226,14 +238,13 @@ QString MainWindow::calculateClock(){
 }
 // метод для проверки текущего дня недели(будний или выходной)
 bool MainWindow::isWorkDay(){
-    if(ui->comboBoxWeekday->currentText() =="Суббота" && ui->comboBoxWeekday->currentText() == "Воскресенье" )
+    if(ui->comboBoxWeekday->currentText() =="Суббота" || ui->comboBoxWeekday->currentText() == "Воскресенье" )
         return false;
     else
         return true;
 }
 // Метод для обновления текста приветствия в зависимости от времени суток
 void MainWindow::changeWelcome() {
-    calculateClock();
     QString welcome; // Строка для хранения приветствия
     int hour = globalTime.hour(); // Получение текущего часа
     int temp = ui->spinBoxTemp->value(); // Получение текущей температуры
@@ -241,8 +252,12 @@ void MainWindow::changeWelcome() {
 
     CustomTextBrowser* item;
     QString maintext;
-    QString clockTime = "Будильник установлен на:";
+    QString clockTime = "";
 
+    if(isWorkDay())
+        clockTime = "Будильник установлен на: " + calculateClock();
+
+    maintext += clockTime + "\n";
     // Определение приветствия в зависимости от времени суток
     if (hour >= 4 && hour <= 10) {
         welcome = "Доброе утро, " + name;
@@ -250,8 +265,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[0].size(); ++card) {
             item = scriptTexts[0][card];
             if (item->isSelected())
-                maintext += "\n" + clockTime;
-                maintext = item->toPlainText();
+                maintext += item->toPlainText();
         }
 
     } else if (hour > 10 && hour <= 16) {
@@ -260,8 +274,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[1].size(); ++card) {
             item = scriptTexts[1][card];
             if (item->isSelected())
-                maintext += "\n" + clockTime;
-                maintext = item->toPlainText();
+                maintext += item->toPlainText();
         }
 
     } else if (hour > 16 && hour <= 22) {
@@ -270,23 +283,19 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[2].size(); ++card) {
             item = scriptTexts[2][card];
             if (item->isSelected())
-                maintext += "\n" + clockTime;
-                maintext = item->toPlainText();
+                maintext += item->toPlainText();
         }
 
     } else {
         welcome = "Доброй ночи, " + name;
 
-        maintext = "Дом спит)";
-        maintext += "\n" + clockTime;
+        maintext += "Дом спит)";
     }
 
     QString climat = scripts.getClimat(temp, comftemp);
     if (!climat.isEmpty())
-        maintext += "\n" + clockTime;
         maintext += "\n" + climat;
 
-    // Установка времени будильника
 
     // Установка текста приветствия в пользовательский интерфейс
     ui->labelWelcome->setText(welcome);
