@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QTextBrowser>
 #include <CustomTextBrowser.h>
+#include <QList>
 #include <script.h>
 
 // Объявление пространства имен для UI
@@ -31,7 +32,8 @@ private:
     void setupSettings(); // Метод для настройки настроек приложения
     void setupScript(); // Метод для настройки сценариев приложения
     void setupThings(); // Метод для настройки используемых устройств
-
+    QString calculateClock(); // Метод для расчёта времени будильника
+    bool isWorkDay();//Метод для определения рабочих дней
     void changeWelcome(); // Метод для обновления приветствия
     void changeScripts(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
     CustomTextBrowser* addCard(QHBoxLayout*, QScrollArea*);

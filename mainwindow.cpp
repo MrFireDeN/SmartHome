@@ -177,9 +177,63 @@ void MainWindow::setupScript() {
         }
     }
 }
+// Метод для расчёта времени установки будильника
+QString MainWindow::calculateClock(){
+    QString goOutTime = ui->timeEditStartWorking->text();
+    QString goOutTime_hours;
+    QString goOutTime_minutes;
+    QString travelTime = ui->travelTime->text();
 
+    for(int i=0; i<goOutTime.indexOf(":");i++)
+    {
+        goOutTime_hours.append(goOutTime[i]);
+    }
+
+    if(goOutTime[goOutTime.indexOf(":")+1]=="0")
+    {
+        goOutTime_minutes.append(goOutTime[goOutTime.size()-1]);
+    }
+    else
+    {
+        for(int i =goOutTime.indexOf(":")+1; i<goOutTime.count(); i++)
+        {
+            goOutTime_minutes.append(goOutTime[i]);
+        }
+    }
+    int clockTime_minutes = goOutTime_minutes.toInt()-(travelTime.toInt()+10); // 10 это время на приготовления в мин.
+    if(clockTime_minutes<0)
+    {
+        goOutTime_hours = QString::number(goOutTime_hours.toInt()-1);
+        clockTime_minutes = 60 + clockTime_minutes;
+    }
+
+    QString clockTime;
+
+    clockTime.append(goOutTime_hours);
+    clockTime.append(":");
+    clockTime.append(QString::number(clockTime_minutes));
+
+    return clockTime;
+//    if(travelTime.toInt()>=60)
+//    {
+//        clockHours = travelTime.toInt()/60;
+//        clockMinutes = travelTime.toInt() % 60;
+//    }
+
+
+
+
+}
+// метод для проверки текущего дня недели(будний или выходной)
+bool MainWindow::isWorkDay(){
+    if(ui->comboBoxWeekday->currentText() =="Суббота" && ui->comboBoxWeekday->currentText() == "Воскресенье" )
+        return false;
+    else
+        return true;
+}
 // Метод для обновления текста приветствия в зависимости от времени суток
 void MainWindow::changeWelcome() {
+    calculateClock();
     QString welcome; // Строка для хранения приветствия
     int hour = globalTime.hour(); // Получение текущего часа
     int temp = ui->spinBoxTemp->value(); // Получение текущей температуры
@@ -187,6 +241,7 @@ void MainWindow::changeWelcome() {
 
     CustomTextBrowser* item;
     QString maintext;
+    QString clockTime = "Будильник установлен на:";
 
     // Определение приветствия в зависимости от времени суток
     if (hour >= 4 && hour <= 10) {
@@ -195,6 +250,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[0].size(); ++card) {
             item = scriptTexts[0][card];
             if (item->isSelected())
+                maintext += "\n" + clockTime;
                 maintext = item->toPlainText();
         }
 
@@ -204,6 +260,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[1].size(); ++card) {
             item = scriptTexts[1][card];
             if (item->isSelected())
+                maintext += "\n" + clockTime;
                 maintext = item->toPlainText();
         }
 
@@ -213,6 +270,7 @@ void MainWindow::changeWelcome() {
         for (int card = 0; card < scriptTexts[2].size(); ++card) {
             item = scriptTexts[2][card];
             if (item->isSelected())
+                maintext += "\n" + clockTime;
                 maintext = item->toPlainText();
         }
 
@@ -220,11 +278,15 @@ void MainWindow::changeWelcome() {
         welcome = "Доброй ночи, " + name;
 
         maintext = "Дом спит)";
+        maintext += "\n" + clockTime;
     }
 
     QString climat = scripts.getClimat(temp, comftemp);
     if (!climat.isEmpty())
+        maintext += "\n" + clockTime;
         maintext += "\n" + climat;
+
+    // Установка времени будильника
 
     // Установка текста приветствия в пользовательский интерфейс
     ui->labelWelcome->setText(welcome);
