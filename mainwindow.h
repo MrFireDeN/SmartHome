@@ -35,8 +35,11 @@ private:
     void setupThings(); // Метод для настройки используемых устройств
     QString calculateClock(); // Метод для расчёта времени будильника
     bool isWorkDay();//Метод для определения рабочих дней
+    bool isWeekend();
+    bool isHomeday();
     void changeWelcome(); // Метод для обновления приветствия
-    void changeScripts(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
+    void changeScriptsText(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
+    void updateScripts();
     CustomTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
     void deleteCard(QHBoxLayout*, QScrollArea*);
     void setCardStyle(CustomTextBrowser*, QString);
