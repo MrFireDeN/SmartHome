@@ -11,16 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Настройка различных частей интерфейса
     setupProfile();
-    setupHomePage();
     setupSettings();
     setupThings();
-
     setupScript();
-
-    //ui->dayScript_1->setStyleSheet("QTextBrowser { background-color: purple; }");
-    //ui->dayScript_2->setStyleSheet("QTextBrowser { background-color: red; }");
-    //ui->dayScript_3->setStyleSheet("QTextBrowser { background-color: green; }");
-    //ui->dayScript_4->setStyleSheet("QTextBrowser { background-color: blue; }");
+    setupHomePage();
 }
 
 // Деструктор главного окна
@@ -39,6 +33,8 @@ void MainWindow::setupProfile() {
         // Включение/выключение элементов управления временем работы в зависимости от состояния чекбокса
         ui->timeEditStartWorking->setEnabled(!checked);
         ui->timeEditStopWorking->setEnabled(!checked);
+
+        changeWelcome();
     });
 
     // Обновление имени пользователя и приветствия при изменении текста в поле ввода имени
@@ -47,6 +43,18 @@ void MainWindow::setupProfile() {
         qDebug() << "name: " << name; // Логирование нового имени
 
         changeWelcome(); // Обновление приветствия
+    });
+
+    connect(ui->timeEditStartWorking, &QTimeEdit::timeChanged, this, [this]() {
+        changeWelcome(); // Обновление приветствия
+    });
+
+    connect(ui->timeEditStopWorking, &QTimeEdit::timeChanged, this, [this]() {
+        changeWelcome(); // Обновление приветствия
+    });
+
+    connect(ui->spinBoxGetReady, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int value){
+        changeWelcome();
     });
 }
 
@@ -59,6 +67,17 @@ void MainWindow::setupHomePage() {
 void MainWindow::setupSettings() {
     globalTime = ui->timeEditGlobalTime->time(); // Инициализация глобального времени
 
+    // Массив указателей на чекбоксы по дням недели
+    weekDayCheckBoxes = {
+        ui->checkBoxMon,  // Понедельник
+        ui->checkBoxTues, // Вторник
+        ui->checkBoxWed,  // Среда
+        ui->checkBoxThurs,// Четверг
+        ui->checkBoxFri,  // Пятница
+        ui->checkBoxSat,  // Суббота
+        ui->checkBoxSun   // Воскресенье
+    };
+
     // Настройка поведения при включении/выключении чекбокса "Системное время"
     connect(ui->checkBoxSystemTime, &QCheckBox::clicked, this, [this](bool checked) {
         // Включение/выключение элементов управления временем и днями недели
@@ -68,11 +87,18 @@ void MainWindow::setupSettings() {
         // Установка времени в зависимости от состояния чекбокса
         if (checked) {
             globalTime = QTime::currentTime(); // Текущее системное время
+            weekday = QDate::currentDate().dayOfWeek()-1;
         }
         else {
             globalTime = ui->timeEditGlobalTime->time(); // Время, выбранное пользователем
+            weekday = ui->comboBoxWeekday->currentIndex();
         }
 
+        changeWelcome(); // Обновление приветствия
+    });
+
+    connect(ui->comboBoxWeekday, &QComboBox::currentIndexChanged, this, [this](int index) {
+        weekday = ui->comboBoxWeekday->currentIndex();
         changeWelcome(); // Обновление приветствия
     });
 
@@ -178,71 +204,48 @@ void MainWindow::setupScript() {
         }
     }
 }
+
 // Метод для расчёта времени установки будильника
-QString MainWindow::calculateClock(){
-    QString goOutTime = ui->timeEditStartWorking->text();
-    QString goOutTime_hours;
-    QString goOutTime_minutes;
-    QString travelTime = ui->travelTime->text();
+QString MainWindow::calculateClock() {
+    // Время чтобы собраться, в минутах
+    int gettingReadyMinutes = ui->spinBoxGetReady->value();
 
-    for(int i=0; i<goOutTime.indexOf(":");i++)
-    {
-        goOutTime_hours.append(goOutTime[i]);
+    // Получаем время выхода
+    QDateTime goOutTime = ui->timeEditStartWorking->dateTime();
+
+    // Конвертируем время выхода в минуты
+    int goOutMinutes = goOutTime.time().hour() * 60 + goOutTime.time().minute();
+
+    // Добавляем время на дорогу и на сборы
+    int totalTravelMinutes = ui->travelTime->value() + gettingReadyMinutes;
+
+    // Вычисляем время установки будильника в минутах
+    int alarmMinutes = goOutMinutes - totalTravelMinutes;
+    while (alarmMinutes < 0) {
+        alarmMinutes += 24 * 60; // Корректируем для отрицательных значений, добавляя сутки в минутах
     }
 
-    if(goOutTime[goOutTime.indexOf(":")+1]=="0")
-    {
-        goOutTime_minutes.append(goOutTime[goOutTime.size()-1]);
-    }
-    else
-    {
-        for(int i =goOutTime.indexOf(":")+1; i<goOutTime.count(); i++)
-        {
-            goOutTime_minutes.append(goOutTime[i]);
-        }
-    }
-    int clockTime_minutes = goOutTime_minutes.toInt()-travelTime.toInt()-10; // 10 это время на приготовления в мин.
-    if(clockTime_minutes<0)
-    {
-        goOutTime_hours = QString::number(goOutTime_hours.toInt()-1);
-        if(clockTime_minutes<-60)
-        {
-            goOutTime_hours = QString::number(goOutTime_hours.toInt()-1);
-           clockTime_minutes = clockTime_minutes + 60;
-        }
-        clockTime_minutes = 60 + clockTime_minutes;
+    // Преобразуем минуты в часы и минуты
+    int alarmHours = alarmMinutes / 60;
+    alarmMinutes %= 60;
 
-    }
+    // Форматируем время будильника с ведущими нулями
+    QString alarmTime = QString("%1:%2")
+                            .arg(alarmHours, 2, 10, QChar('0'))
+                            .arg(alarmMinutes, 2, 10, QChar('0'));
 
-    QString clockTime;
-
-    clockTime.append(goOutTime_hours);
-    clockTime.append(":");
-    if(clockTime_minutes==0)
-    {
-        clockTime.append("00");
-        return clockTime;
-    }
-    clockTime.append(QString::number(clockTime_minutes));
-
-    return clockTime;
-//    if(travelTime.toInt()>=60)
-//    {
-//        clockHours = travelTime.toInt()/60;
-//        clockMinutes = travelTime.toInt() % 60;
-//    }
-
-
-
-
+    return alarmTime;
 }
+
+
 // метод для проверки текущего дня недели(будний или выходной)
 bool MainWindow::isWorkDay(){
-    if(ui->comboBoxWeekday->currentText() =="Суббота" || ui->comboBoxWeekday->currentText() == "Воскресенье" )
+    if (ui->checkBoxAlwaysHome->isChecked())
         return false;
-    else
-        return true;
+
+    return !weekDayCheckBoxes[weekday]->isChecked();
 }
+
 // Метод для обновления текста приветствия в зависимости от времени суток
 void MainWindow::changeWelcome() {
     QString welcome; // Строка для хранения приветствия

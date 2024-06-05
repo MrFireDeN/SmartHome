@@ -8,6 +8,7 @@
 #include <QTextBrowser>
 #include <CustomTextBrowser.h>
 #include <QList>
+#include <QCheckBox>
 #include <script.h>
 
 // Объявление пространства имен для UI
@@ -43,6 +44,7 @@ private:
     QString name; // Имя пользователя
     QTime globalTime; // Глобальное время, используемое в приложении
     int weekday = 0; // Текущий день недели (по умолчанию 0)
+    QList<QCheckBox*> weekDayCheckBoxes;
 
     Script scripts;
     bool checkedThings[14];
