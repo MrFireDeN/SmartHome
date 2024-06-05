@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupThings();
     setupScript();
     setupHomePage();
+    updateScripts();
 }
 
 // Деструктор главного окна

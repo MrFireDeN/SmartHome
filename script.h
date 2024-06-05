@@ -29,7 +29,7 @@ public:
     QVector<QVector<QString>> getSecuritySystem();      // Система охраны
     QVector<QVector<QString>> getSmartSpeaker();        // Умная колонка
     QVector<QVector<QString>> getSocket();              // Розетка
-    QString getClimat(int temperature,int comfort);  // Климат контроль
+    QString getClimat(int temperature,int comfort);     // Климат контроль
 };
 
 #endif // SCRIPT_H

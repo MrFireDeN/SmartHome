@@ -28,26 +28,31 @@ public:
 
 private:
     Ui::MainWindow *ui; // Указатель на интерфейс пользователя
+
     void setupProfile(); // Метод для настройки профиля пользователя
     void setupHomePage(); // Метод для настройки домашней страницы
     void setupSettings(); // Метод для настройки настроек приложения
     void setupScript(); // Метод для настройки сценариев приложения
     void setupThings(); // Метод для настройки используемых устройств
-    QString calculateClock(); // Метод для расчёта времени будильника
-    bool isWorkDay();//Метод для определения рабочих дней
-    bool isWeekend();
-    bool isHomeday();
+
     void changeWelcome(); // Метод для обновления приветствия
-    void changeScriptsText(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
-    void updateScripts();
+
+    QString calculateClock(); // Метод для расчёта времени будильника
+    bool isWorkDay(); // Метод для определения рабочих дней
+    bool isWeekend(); // Метод для определения выходных
+    bool isHomeday(); // Метод для определения домашних дней
+
     CustomTextBrowser* addCard(QHBoxLayout*, QScrollArea*);
     void deleteCard(QHBoxLayout*, QScrollArea*);
     void setCardStyle(CustomTextBrowser*, QString);
 
+    void changeScriptsText(QVector<QVector<QString>>, bool, QString); // Метод изменения скриптов
+    void updateScripts();
+
     QString name; // Имя пользователя
     QTime globalTime; // Глобальное время, используемое в приложении
     int weekday = 0; // Текущий день недели (по умолчанию 0)
-    QList<QCheckBox*> weekDayCheckBoxes;
+    QList<QCheckBox*> weekDayCheckBoxes; // Дни недели
 
     Script scripts;
     bool checkedThings[14];
